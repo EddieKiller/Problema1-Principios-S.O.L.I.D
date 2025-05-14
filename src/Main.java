@@ -1,5 +1,5 @@
 import cliente.Cliente;
-import pedido.Pedido;
+import producto.Producto;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class Main {
         System.out.println("Descuento: " + (cliente.getDescuento() * 100) + "%");
         System.out.println("¿Envío gratis?: " + cliente.tieneEnvioGratis());
 
-        Pedido pedido1 = new Pedido("Chocolate", "123456", 2500, 100);
+        Producto pedido1 = new Producto("Chocolate", "123456", 2500, 100);
 
         // Mostrar info
         System.out.println("----------------------------------------------------");

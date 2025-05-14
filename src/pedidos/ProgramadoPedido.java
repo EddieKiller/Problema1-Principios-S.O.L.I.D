@@ -2,12 +2,13 @@ package pedidos;
 import java.util.Map;
 
 import cliente.Cliente;
+import pagos.MetodoPago;
 import producto.Producto;
 
 public class ProgramadoPedido extends Pedido {
     private String fechaEntrega;
 
-    public ProgramadoPedido(int id, String estado, Map<Producto, Integer> productos, String fechaEntrega, Cliente cliente) {
+    public ProgramadoPedido(int id, EstadoPedido estado, Map<Producto, Integer> productos, String fechaEntrega, Cliente cliente) {
         super(id, estado, productos, cliente);
         this.fechaEntrega = fechaEntrega;
     }

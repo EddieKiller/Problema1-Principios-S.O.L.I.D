@@ -2,16 +2,21 @@ package pedidos;
 import producto.Producto;
 import java.util.Map;
 import cliente.Cliente;
-
+import pagos.*;
 
 
 public class Pedido {
+
+    public enum EstadoPedido {
+        PENDIENTE, PAGADO, EN_PREPARACION, ENVIADO, ENTREGADO, CANCELADO
+    }
+
     private int id;
-    private String estado;
+    private EstadoPedido estado;
     private Map<Producto, Integer> productos;
     private Cliente cliente;
 
-    public Pedido(int id, String estado, Map<Producto, Integer> productos, Cliente cliente) {
+    public Pedido(int id, EstadoPedido estado, Map<Producto, Integer> productos, Cliente cliente) {
         this.id = id;
         this.estado = estado;
         this.productos = productos;
@@ -39,11 +44,11 @@ public class Pedido {
         return productos;
     }
 
-    public String getEstado() {
+    public EstadoPedido getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
 }

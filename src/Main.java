@@ -1,7 +1,9 @@
 import cliente.Cliente;
 import producto.Producto;
 import pedidos.*;
+import pagos.*;
 import java.util.*;
+import static pedidos.Pedido.EstadoPedido.*;
 
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -13,6 +15,7 @@ public class Main {
                 "Mozart 1490, Villa Alemana",
                 Cliente.TipoCliente.VIP
         );
+
 
         // Mostrar información
         System.out.println("Nombre: " + cliente.getNombre());
@@ -36,12 +39,18 @@ public class Main {
         productos.put(producto1, 3); // 3 chocolates
         productos.put(producto2, 2); // 2 vainillas
 
-        Pedido pedidoEstandar = new EstandarPedido(100, "Enviado", productos, cliente);
-        Pedido pedidoInt = new InternacionalPedido(101, "Entregado", productos, 25.0, cliente);
+        Pedido pedidoEstandar = new EstandarPedido(100, ENVIADO, productos, cliente);
+
+        Pedido pedidoInt = new InternacionalPedido(101,ENTREGADO, productos, 25.0, cliente);
+
+
+
 
         System.out.println("-------------------------------------------------------");
         System.out.println("Total pedido estandar: " + pedidoEstandar.calcularTotal());
         System.out.println("Total pedido internacional: " + pedidoInt.calcularTotal());
+
+
 
     }
 }

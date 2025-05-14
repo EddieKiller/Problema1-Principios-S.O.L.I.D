@@ -1,5 +1,7 @@
 package producto;
 
+import java.util.Objects;
+
 public class Producto {
     private String nombre;
     private String codigo;
@@ -20,6 +22,16 @@ public class Producto {
         }
         return false;
     }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Producto)) return false;
+        Producto p = (Producto) o;
+        return Objects.equals(codigo, p.codigo);
+    }
+    public int hashCode() {
+        return Objects.hash(codigo);
+    }
+
 
     public String getNombre() {
         return nombre;

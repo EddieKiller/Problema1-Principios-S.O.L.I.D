@@ -36,9 +36,10 @@ public class Main {
         productos.put(producto1, 3); // 3 chocolates
         productos.put(producto2, 2); // 2 vainillas
 
-        Pedido pedidoEstandar = new EstandarPedido(100, "Enviado", productos);
-        Pedido pedidoInt = new InternacionalPedido(101, "Entregado", productos, 25.0);
+        Pedido pedidoEstandar = new EstandarPedido(100, "Enviado", productos, cliente);
+        Pedido pedidoInt = new InternacionalPedido(101, "Entregado", productos, 25.0, cliente);
 
+        System.out.println("-------------------------------------------------------");
         System.out.println("Total pedido estandar: " + pedidoEstandar.calcularTotal());
         System.out.println("Total pedido internacional: " + pedidoInt.calcularTotal());
 

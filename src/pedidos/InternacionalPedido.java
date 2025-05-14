@@ -1,18 +1,19 @@
 package pedidos;
 import java.util.Map;
 import producto.Producto;
+import cliente.Cliente;
 
 public class InternacionalPedido extends Pedido {
     private double impuestosAduana;
 
-    public InternacionalPedido(int id, String estado, Map<Producto, Integer> productos, double impuestosAduana) {
-        super(id, estado, productos);
+    public InternacionalPedido(int id, String estado, Map<Producto, Integer> productos, double impuestosAduana, Cliente cliente) {
+        super(id, estado, productos, cliente);
         this.impuestosAduana = impuestosAduana;
     }
 
     @Override
     public double calcularTotal() {
-        return super.calcularTotal() + impuestosAduana;
+        return (super.calcularTotal() + impuestosAduana);
     }
 
     public double getImpuestosAduana() {

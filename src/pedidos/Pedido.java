@@ -32,6 +32,15 @@ public class Pedido {
         return subtotal - descuento;
     }
 
+    public void descontarStockDeProductos() {
+        for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
+            Producto producto = entry.getKey();
+            int cantidad = entry.getValue();
+            producto.descontarStock(cantidad);
+        }
+    }
+
+
     public Cliente getCliente() {
         return cliente;
     }

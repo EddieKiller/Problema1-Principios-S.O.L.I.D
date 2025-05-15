@@ -35,6 +35,10 @@ public class Cliente {
         return tipoCliente;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
     public enum TipoCliente {
         NUEVO, FRECUENTE, VIP
     }

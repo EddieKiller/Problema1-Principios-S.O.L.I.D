@@ -15,13 +15,12 @@ public class Producto {
         this.stock = stock;
     }
 
-    public boolean descontarStock(int cantidad) {
+    public void descontarStock(int cantidad) {
         if (stock >= cantidad) {
             stock -= cantidad;
-            return true;
         }
-        return false;
     }
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Producto)) return false;

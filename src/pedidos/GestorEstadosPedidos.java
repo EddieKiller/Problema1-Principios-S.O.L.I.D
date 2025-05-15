@@ -16,7 +16,7 @@ public class GestorEstadosPedidos {
     }
     private static boolean esTransicionValida(Pedido.EstadoPedido actual, Pedido.EstadoPedido nuevo) {
         return switch (actual) {
-            case PENDIENTE -> nuevo == Pedido.EstadoPedido.PAGADO || nuevo == Pedido.EstadoPedido.CANCELADO;
+            case PENDIENTE -> nuevo == Pedido.EstadoPedido.PAGADO ;
             case PAGADO -> nuevo == Pedido.EstadoPedido.EN_PREPARACION || nuevo == Pedido.EstadoPedido.CANCELADO;
             case EN_PREPARACION -> nuevo == Pedido.EstadoPedido.ENVIADO || nuevo == Pedido.EstadoPedido.CANCELADO;
             case ENVIADO, CANCELADO -> false;

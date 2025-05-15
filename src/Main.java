@@ -61,12 +61,13 @@ public class Main {
         Factura factura1 = new Factura(pedidoEstandar);
         factura1.imprimirFactura();
 
-        factura1.pagarFactura("cripto",gestor);
+        factura1.pagarFactura("tarjeta",gestor);
 
         System.out.println(pedidoEstandar.getEstado());
-        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,CANCELADO);
-        System.out.println(pedidoEstandar.getEstado());
+
         GestorEstadosPedidos.cambiarEstado(pedidoEstandar,EN_PREPARACION);
+        System.out.println(pedidoEstandar.getEstado());
+        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,CANCELADO);
         System.out.println(pedidoEstandar.getEstado());
 
     }

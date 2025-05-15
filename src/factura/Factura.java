@@ -3,7 +3,9 @@ import pedidos.Pedido.*;
 import pedidos.Pedido;
 import producto.Producto;
 import cliente.Cliente;
+import pagos.*;
 import java.util.*;
+
 
 public class Factura {
 
@@ -67,6 +69,27 @@ public class Factura {
         System.out.println("Total final: $" + montoFinal);
         System.out.println("Estado de pago: " + (pagado ? "Pagado" : "Pendiente"));
         System.out.println("-------------------");
+    }
+    public boolean pagarFactura(String nombreMetodo, GestorMetodosPago gestor){
+        if (pagado){
+            System.out.println("La factura ya esta pagada");
+            return false;
+        }
+        if(!gestor.existeMetodo(nombreMetodo)){
+            System.out.println("Metodo de pago no encontrado:"+ nombreMetodo);
+            return false;
+        }
+        MetodoPago metodo = gestor.obtenerMetodo(nombreMetodo);
+        boolean exito = metodo.procesarPago(montoFinal);
+
+        if (exito){
+            this.pagado=true;
+            this.pedido.setEstado(EstadoPedido.PAGADO);
+            System.out.println("Pago exitoso con " + nombreMetodo);
+        } else{
+            System.out.println("Fallo al procesar el pago con " + nombreMetodo);
+        }
+        return exito;
     }
 
 

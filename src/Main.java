@@ -6,7 +6,7 @@ import factura.Factura;
 import java.util.*;
 import static pedidos.Pedido.EstadoPedido.*;
 
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
         // Crear un cliente nuevo de tipo VIP
@@ -37,9 +37,9 @@ public class Main {
         Map<Producto, Integer> productosPedido2 = new HashMap<>();
         productosPedido2.put(producto3, 1); // 1 leche
 
-        Pedido pedidoEstandar = new EstandarPedido(100, ENVIADO, productosPedido1, cliente);
+        Pedido pedidoEstandar = new EstandarPedido(100, PENDIENTE, productosPedido1, cliente);
 
-        Pedido pedidoInt = new InternacionalPedido(101, Pedido.EstadoPedido.ENTREGADO, productosPedido2, 25.0, cliente);
+        Pedido pedidoInt = new InternacionalPedido(101, Pedido.EstadoPedido.PENDIENTE, productosPedido2, 25.0, cliente);
 
         pedidoInt.descontarStockDeProductos();
         pedidoEstandar.descontarStockDeProductos();
@@ -50,11 +50,24 @@ public class Main {
         System.out.println("Stock de leche después del pedido: " + producto3.getStock());
         System.out.println("\n");
 
+        GestorMetodosPago gestor = new GestorMetodosPago();
+        gestor.registrarMetodo("tarjeta",new PagoTarjeta());
+        gestor.registrarMetodo("transferencia", new PagoTransferencia());
+        gestor.registrarMetodo("cripto", new PagoCripto());
+        gestor.registrarMetodo("pagoContraEntrega", new PagoContraEntrega());
+
+
 
         Factura factura1 = new Factura(pedidoEstandar);
         factura1.imprimirFactura();
 
+        factura1.pagarFactura("cripto",gestor);
 
+        System.out.println(pedidoEstandar.getEstado());
+        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,CANCELADO);
+        System.out.println(pedidoEstandar.getEstado());
+        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,EN_PREPARACION);
+        System.out.println(pedidoEstandar.getEstado());
 
     }
 }

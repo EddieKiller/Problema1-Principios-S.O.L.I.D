@@ -37,7 +37,14 @@ public class Main {
         Map<Producto, Integer> productosPedido2 = new HashMap<>();
         productosPedido2.put(producto3, 1); // 1 leche
 
-        Pedido pedidoEstandar = new EstandarPedido(100, PENDIENTE, productosPedido1, cliente);
+
+        System.out.println("-------------- Descuentos antes del pedido ---------------");
+        System.out.println("Stock de chocolates después del pedido: " + producto1.getStock());
+        System.out.println("Stock de vainillas después del pedido: " + producto2.getStock());
+        System.out.println("Stock de leche después del pedido: " + producto3.getStock());
+        System.out.println("\n");
+
+        Pedido pedidoEstandar = new EstandarPedido(100, Pedido.EstadoPedido.PENDIENTE, productosPedido1, cliente);
 
         Pedido pedidoInt = new InternacionalPedido(101, Pedido.EstadoPedido.PENDIENTE, productosPedido2, 25.0, cliente);
 
@@ -60,15 +67,42 @@ public class Main {
 
         Factura factura1 = new Factura(pedidoEstandar);
         factura1.imprimirFactura();
+        System.out.println("\n");
 
         factura1.pagarFactura("tarjeta",gestor);
+        System.out.println("Estado actual del pedido: " + pedidoEstandar.getEstado());
+        System.out.println("\n");
 
-        System.out.println(pedidoEstandar.getEstado());
 
-        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,EN_PREPARACION);
-        System.out.println(pedidoEstandar.getEstado());
-        GestorEstadosPedidos.cambiarEstado(pedidoEstandar,CANCELADO);
-        System.out.println(pedidoEstandar.getEstado());
+        Factura factura2 = new Factura(pedidoInt);
+        factura2.imprimirFactura();
 
+        System.out.println("Estado antes de pagar con cripto: " + pedidoInt.getEstado());
+        factura2.pagarFactura("cripto", gestor);
+        System.out.println("Estado despues de pagar con cripto: " + pedidoInt.getEstado());
+        System.out.println("\n");
+
+        System.out.println("Estado actual: " + pedidoInt.getEstado());
+
+// 3. Preparar un envío: PAGADO -> EN_PREPARACION
+        boolean prepExito = pedidoInt.cambiarEstado(Pedido.EstadoPedido.EN_PREPARACION);
+        System.out.println("Preparar envío pedidoInt: " + (prepExito ? "OK" : "No válido"));
+        System.out.println("Estado actual: " + pedidoInt.getEstado());
+        System.out.println("\n");
+
+// 4. Enviar un pedido: EN_PREPARACION -> ENVIADO
+        boolean envioExito = pedidoInt.cambiarEstado(Pedido.EstadoPedido.ENVIADO);
+        System.out.println("Enviar pedidoInt: " + (envioExito ? "OK" : "No válido"));
+        System.out.println("Estado actual: " + pedidoInt.getEstado());
+        System.out.println("\n");
+
+        // 6. Cancelar un pedido: PAGADO -> CANCELADO (solo si no ha sido enviado)
+        // Para probar cancelación, necesitamos otro pedido o reiniciar pedidoInt
+
+        Pedido otroPedido = new Pedido(102, PAGADO, pedidoInt.getProductos(), pedidoInt.getCliente());
+        boolean cancelExito = otroPedido.cambiarEstado(Pedido.EstadoPedido.CANCELADO);
+        System.out.println("Cancelar otroPedido: " + (cancelExito ? "OK" : "No válido"));
+        System.out.println("Estado actual otroPedido: " + otroPedido.getEstado());
     }
+
 }

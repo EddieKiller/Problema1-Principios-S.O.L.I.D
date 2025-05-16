@@ -23,6 +23,28 @@ public class Pedido {
         this.cliente = cliente;
     }
 
+    public boolean cambiarEstado(EstadoPedido nuevoEstado) {
+        if (esTransicionValida(this.estado, nuevoEstado)) {
+            EstadoPedido anterior = this.estado;
+            this.estado = nuevoEstado;
+            System.out.println("Cambio exitoso: " + anterior + " > " + nuevoEstado);
+            return true;
+        } else {
+            System.out.println("Transición inválida: " + this.estado + " > " + nuevoEstado);
+            return false;
+        }
+    }
+
+    private boolean esTransicionValida(EstadoPedido actual, EstadoPedido nuevo) {
+        return switch (actual) {
+            case PENDIENTE -> nuevo == EstadoPedido.PAGADO;
+            case PAGADO -> nuevo == EstadoPedido.EN_PREPARACION || nuevo == EstadoPedido.CANCELADO;
+            case EN_PREPARACION -> nuevo == EstadoPedido.ENVIADO || nuevo == EstadoPedido.CANCELADO;
+            case ENVIADO, CANCELADO -> false;
+            default -> throw new IllegalStateException("Valor inesperado: " + actual);
+        };
+    }
+
     public double calcularTotal() {
         double subtotal = 0;
         for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {

@@ -76,22 +76,21 @@ public class Factura {
             return false;
         }
         if(!gestor.existeMetodo(nombreMetodo)){
-            System.out.println("Metodo de pago no encontrado:"+ nombreMetodo);
+            System.out.println("Metodo de pago no encontrado: " + nombreMetodo);
             return false;
         }
         MetodoPago metodo = gestor.obtenerMetodo(nombreMetodo);
         boolean exito = metodo.procesarPago(montoFinal);
 
         if (exito){
-            this.pagado=true;
-            this.pedido.setEstado(EstadoPedido.PAGADO);
+            this.pagado = true;
+            this.pedido.cambiarEstado(Pedido.EstadoPedido.PAGADO);
             System.out.println("Pago exitoso con " + nombreMetodo);
         } else{
             System.out.println("Fallo al procesar el pago con " + nombreMetodo);
         }
         return exito;
     }
-
 
     public double getTotalBruto() {
         return totalBruto;

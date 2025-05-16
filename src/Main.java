@@ -46,7 +46,7 @@ public class Main {
 
         Pedido pedidoEstandar = new EstandarPedido(100, Pedido.EstadoPedido.PENDIENTE, productosPedido1, cliente);
 
-        Pedido pedidoInt = new InternacionalPedido(101, Pedido.EstadoPedido.PENDIENTE, productosPedido2, 25.0, cliente);
+        Pedido pedidoInt = new InternacionalPedido(101, Pedido.EstadoPedido.PENDIENTE, productosPedido2, cliente, 25);
 
         pedidoInt.descontarStockDeProductos();
         pedidoEstandar.descontarStockDeProductos();

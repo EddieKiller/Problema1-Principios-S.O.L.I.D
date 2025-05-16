@@ -1,28 +1,31 @@
 package pedidos;
-import java.util.Map;
 
 import cliente.Cliente;
-import pagos.MetodoPago;
 import producto.Producto;
+import java.util.Map;
 
-public class ExpressPedido extends Pedido {
+public class ExpressPedido extends PedidoCambioFecha {
+
     private double cargoExtra;
 
-    public ExpressPedido(int id, EstadoPedido estado, Map<Producto, Integer> productos, double cargoExtra, Cliente cliente) {
+    public ExpressPedido(int id, EstadoPedido estado, Map<Producto, Integer> productos, Cliente cliente, double cargoExtra) {
         super(id, estado, productos, cliente);
         this.cargoExtra = cargoExtra;
     }
 
     @Override
-    public double calcularTotal() {
-        return super.calcularTotal() + cargoExtra;
+    public void cambiarFecha() {
+        System.out.println("La fecha del pedido express ha sido cambiada.");
+        // Aquí podrías modificar fechaEntrega si fuera dinámico
     }
 
-    public double getCargoExtra() {
-        return cargoExtra;
+    //-------IMPORTANTE------
+    //esta deberia ser un @Override pero como en Java no existe la herencia múltiple
+    //la "simulamos" heredando de PedidoCambioFecha y usando composición para el cobro
+    public double sumarCobro() {
+        double total = super.calcularTotal();
+        return total + cargoExtra;
     }
 
-    public void setCargoExtra(double cargoExtra) {
-        this.cargoExtra = cargoExtra;
-    }
 }
+

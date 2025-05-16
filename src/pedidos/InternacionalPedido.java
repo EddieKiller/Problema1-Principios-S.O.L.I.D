@@ -1,25 +1,17 @@
 package pedidos;
-import java.awt.*;
-import java.util.Map;
 
-import pagos.MetodoPago;
-import producto.Producto;
-import cliente.Cliente;
+public class InternacionalPedido extends PedidoConCobro {
 
-public class InternacionalPedido extends Pedido {
-    private double impuestosAduana;
+    private double cobroAduana;
 
-    public InternacionalPedido(int id, EstadoPedido estado, Map<Producto, Integer> productos, double impuestosAduana, Cliente cliente) {
+    public InternacionalPedido(int id, EstadoPedido estado, java.util.Map<producto.Producto, Integer> productos, cliente.Cliente cliente, double cobroAduana) {
         super(id, estado, productos, cliente);
-        this.impuestosAduana = impuestosAduana;
+        this.cobroAduana = cobroAduana;
     }
 
-
-    public double getImpuestosAduana() {
-        return impuestosAduana;
-    }
-
-    public void setImpuestosAduana(double impuestosAduana) {
-        this.impuestosAduana = impuestosAduana;
+    @Override
+    public double sumarCobro() {
+        double total = super.calcularTotal();
+        return total + cobroAduana;
     }
 }

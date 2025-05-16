@@ -51,7 +51,8 @@ public class Pedido {
             subtotal += entry.getKey().getPrecio() * entry.getValue();
         }
         double descuento = subtotal * cliente.getDescuento();
-        return subtotal - descuento;
+        double total = subtotal - descuento;
+        return total;
     }
 
     public void descontarStockDeProductos() {

@@ -34,6 +34,7 @@ public class Main {
         productosPedido1.put(producto1, 3); // 3 chocolates
         productosPedido1.put(producto2, 2); // 2 vainillas
 
+
         Map<Producto, Integer> productosPedido2 = new HashMap<>();
         productosPedido2.put(producto3, 1); // 1 leche
 
@@ -99,10 +100,10 @@ public class Main {
         // 6. Cancelar un pedido: PAGADO -> CANCELADO (solo si no ha sido enviado)
         // Para probar cancelación, necesitamos otro pedido o reiniciar pedidoInt
 
-        Pedido otroPedido = new Pedido(102, PAGADO, pedidoInt.getProductos(), pedidoInt.getCliente());
-        boolean cancelExito = otroPedido.cambiarEstado(Pedido.EstadoPedido.CANCELADO);
+        Pedido pedidoExpress = new ExpressPedido(102, PAGADO, productosPedido1, cliente, 1000);
+        boolean cancelExito = pedidoExpress.cambiarEstado(Pedido.EstadoPedido.CANCELADO);
         System.out.println("Cancelar otroPedido: " + (cancelExito ? "OK" : "No válido"));
-        System.out.println("Estado actual otroPedido: " + otroPedido.getEstado());
+        System.out.println("Estado actual otroPedido: " + pedidoExpress.getEstado());
     }
 
 }

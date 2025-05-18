@@ -5,10 +5,10 @@ import cliente.Cliente;
 import pagos.*;
 
 
-public class Pedido {
+public abstract class Pedido {
 
     public enum EstadoPedido {
-        PENDIENTE, PAGADO, EN_PREPARACION, ENVIADO, ENTREGADO, CANCELADO
+        PENDIENTE, PAGADO, EN_PREPARACION, ENVIADO, CANCELADO
     }
 
     private int id;
